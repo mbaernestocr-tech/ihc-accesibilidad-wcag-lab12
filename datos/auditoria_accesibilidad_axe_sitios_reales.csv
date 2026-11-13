@@ -1,0 +1,15 @@
+﻿sitio,pais,url,fecha_hora,estado,url_final,titulo,lang,total_violaciones,reglas_distintas,nodos_afectados,critical,serious,moderate,minor,contraste_nodos,imagenes_sin_alt_nodos,etiquetas_nodos,aprobadas,incompletas,nota
+gob.pe (Plataforma del Estado Peruano),PE,https://www.gob.pe/,2026-11-09 18:32:15,VÁLIDA,https://www.gob.pe/,Plataforma del Estado Peruano,es-pe,5,2,5,4,1,0,0,0,0,0,43,7,axe-core 4.10.2
+SUNAT,PE,https://www.sunat.gob.pe/,2026-11-09 18:32:27,VÁLIDA,https://www.sunat.gob.pe/,SUNAT,(vacío),117,15,117,23,31,63,0,1,17,2,45,5,axe-core 4.10.2
+RENIEC,PE,https://www.reniec.gob.pe/,2026-11-09 18:32:40,VÁLIDA,https://www.gob.pe/reniec,Registro Nacional de Identificación y Estado Civil - RENIEC - Plataforma del Estado Peruan,es-pe,10,4,10,1,8,0,1,0,0,0,45,8,axe-core 4.10.2
+UNMSM,PE,https://www.unmsm.edu.pe/,2026-11-09 18:32:47,VÁLIDA,https://www.unmsm.edu.pe/,Universidad Nacional Mayor de San Marcos,es,1,1,1,0,1,0,0,0,0,0,39,4,axe-core 4.10.2
+El Comercio,PE,https://elcomercio.pe/,2026-11-09 18:33:05,VÁLIDA,https://elcomercio.pe/,Noticias del Perú y de Estados Unidos | EL COMERCIO PERÚ,es,30,11,30,0,12,16,2,0,0,0,45,7,axe-core 4.10.2
+Mercado Libre Perú,PE,https://www.mercadolibre.com.pe/,2026-11-09 18:33:24,VÁLIDA,https://www.mercadolibre.com.pe/,Mercado Libre Perú - Envíos Gratis en el día,es-PE,42,2,42,0,42,0,0,41,0,0,49,4,axe-core 4.10.2
+BCP (Banco de Crédito),PE,https://www.viabcp.com/,2026-11-09 18:33:34,VÁLIDA,https://www.viabcp.com/,Banco de Crédito del Perú | ViaBCP,es,36,6,36,2,14,18,2,11,0,0,45,4,axe-core 4.10.2
+GOV.UK,INT,https://www.gov.uk/,2026-11-09 18:33:41,VÁLIDA,https://www.gov.uk/,Welcome to GOV.UK,en,2,1,2,0,0,2,0,0,0,0,48,0,axe-core 4.10.2
+W3C,INT,https://www.w3.org/,2026-11-09 18:33:47,NO VÁLIDA,https://www.w3.org/,Un momento…,,0,0,0,0,0,0,0,0,0,0,0,0,bloqueo o error (HTTP 403); no se promedia
+BBC,INT,https://www.bbc.com/,2026-11-09 18:34:02,VÁLIDA,https://www.bbc.com/,"BBC Home | Breaking News, World News, US News, Sports, Business, Innovation, Climate, Cult",en-GB,2,2,2,0,0,2,0,0,0,0,43,1,axe-core 4.10.2
+Apple,INT,https://www.apple.com/,2026-11-09 18:34:20,VÁLIDA,https://www.apple.com/,Apple,en-US,7,4,7,2,2,1,2,2,0,0,45,4,axe-core 4.10.2
+Microsoft,INT,https://www.microsoft.com/es-pe/,2026-11-09 18:34:41,VÁLIDA,https://www.microsoft.com/es-pe/,"Microsoft: IA, nube, productividad, informática, juegos y aplicaciones",es-PE,0,0,0,0,0,0,0,0,0,0,43,1,axe-core 4.10.2
+Wikipedia (es),INT,https://es.wikipedia.org/wiki/Wikipedia:Portada,2026-11-09 18:34:48,VÁLIDA,https://es.wikipedia.org/wiki/Wikipedia:Portada,"Wikipedia, la enciclopedia libre",es,14,6,14,6,4,1,3,0,2,0,52,4,axe-core 4.10.2
+MDN Web Docs (es),INT,https://developer.mozilla.org/es/,2026-11-09 18:34:53,VÁLIDA,https://developer.mozilla.org/es/,MDN Web Docs,es,8,3,8,0,0,8,0,0,0,0,43,1,axe-core 4.10.2

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ESLBHP — Ernesto Style Label Based Hyperdetailed Prompts
+  Semana 12 · IHC 202W0606 (Python · JavaScript · AIAP) · UNMSM · 2026-II
+  Tema: Accesibilidad y diseño universal — tipos de discapacidad, soluciones de accesibilidad, accesibilidad web (WCAG 2.2) y comprobación (Unidad IV · RA4)
+  Uso: copie un <prompt> completo (con todas sus etiquetas internas) en el asistente de IA.
+  Regla ética del curso (guía v5 §16): todo código o texto asistido por IA se EJECUTA/VERIFICA y se DECLARA.
+  ADVERTENCIA CENTRAL: la IA genera HIPÓTESIS, no hallazgos validados. Un problema de accesibilidad existe solo si una persona o una herramienta
+  lo comprobó en la pantalla (axe-core detecta ≈ 30–40 % de los problemas). La IA no sustituye a usuarios con discapacidad y nunca fabrica
+  hallazgos, resultados de lectores de pantalla, capturas, participantes ni citas.
+-->
+<prompt id="P04" nombre="Corregir un formulario a HTML semántico accesible">
+  <role>
+Eres un desarrollador front-end experto en HTML semántico y en ARIA, que sigue la primera regla de ARIA: no usar ARIA si existe un elemento HTML nativo.
+  </role>
+  <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 12 (inicio de la Unidad IV): accesibilidad y diseño universal. El equipo trabaja con formularios web (A con barreras y B corregido), con una auditoría real hecha con axe-core 4.10.2 sobre 14 sitios y con las pautas WCAG 2.2 (principios Perceptible, Operable, Comprensible y Robusto; niveles A, AA y AAA). Recibirás el código de un formulario con barreras (por ejemplo, el formulario A del ejercicio 12.2).
+  </context>
+  <task>
+1. Lista los problemas que ves en el código, con el criterio WCAG de cada uno.
+2. Entrega el código corregido completo, listo para pegar, con comentarios en español que expliquen cada cambio.
+3. Para cada cambio, indica qué comprobación manual lo verifica (teclado, zoom, lector de pantalla).
+  </task>
+  <constraints>
+- Prefiere elementos nativos (label, button, fieldset) antes que roles ARIA.
+- No uses tabindex positivo; no quites el contorno de foco sin reemplazarlo.
+- Los objetivos táctiles miden al menos 24×24 px (criterio 2.5.8) y el contraste cumple 4,5:1 (texto normal).
+- Mantén los nombres de variables y funciones en inglés y los textos visibles en español, con lang="es".
+  </constraints>
+  <output>
+Dos secciones: lista de problemas (tabla) y código corregido (bloque HTML).
+  </output>
+  <verification>
+- Ejecute el verificador 12.2 sobre su código corregido: ¿cuántos de los 15 criterios cumple?
+- Haga el recorrido solo con teclado (Tab, Mayús+Tab, Enter) y anote cualquier atasco.
+  </verification>
+</prompt>

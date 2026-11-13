@@ -1,0 +1,82 @@
+@startuml
+' =============================================
+' PROTOCOLO DE DIAGRAMA DE SECUENCIA - BATD
+' =============================================
+skinparam actorStyle awesome
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam BoxPadding 15
+skinparam ParticipantPadding 20
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing true
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+skinparam sequenceGroupHeaderFontStyle bold
+
+skinparam sequence {
+    ArrowColor darkgreen
+    LifeLineBorderColor black
+    LifeLineBorderThickness 2.5
+    LifeLineBackgroundColor #85C1E9
+    GroupBorderColor #5D6D7E
+    GroupBodyBackgroundColor #FBFCFC
+    GroupHeaderFontColor black
+    GroupBackgroundColor #CDCDCD
+}
+skinparam participant {
+    BackgroundColor #85C1E9
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+skinparam actor {
+    BackgroundColor #85C1E9
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+skinparam database {
+    BackgroundColor #85C1E9
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+skinparam noteBackgroundColor #FFFFCC
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+
+title Diagrama de Secuencia de la Auditoría de Accesibilidad con axe-core
+
+actor "Docente" as DOC
+participant "Auditor Playwright" as AUD
+participant "Navegador Chrome" as NAV
+participant "Sitio web" as WEB
+participant "axe-core 4.10.2" as AXE
+database "CSV de auditoría" as CSV
+participant "Notebook Colab" as NB
+
+DOC -> AUD : ejecutar(lista de 14 sitios)
+loop para cada sitio
+    AUD -> NAV : abrir(URL)
+    NAV -> WEB : GET página de inicio
+    WEB --> NAV : HTML + CSS + JS
+    alt carga correcta
+        AUD -> NAV : inyectar(axe.min.js)
+        AUD -> AXE : axe.run(document)
+        AXE --> AUD : violaciones, aprobadas, incompletas
+        AUD -> CSV : registrar(sitio, impacto, regla, nodos, fecha y hora)
+    else bloqueo, error HTTP o CAPTCHA
+        AUD -> CSV : registrar(NO VÁLIDA, motivo)
+    end
+end
+DOC -> NB : subir los CSV
+NB -> NB : agrupar por impacto, por país y por regla
+NB --> DOC : gráficos y tabla de las 10 reglas más frecuentes
+
+@enduml

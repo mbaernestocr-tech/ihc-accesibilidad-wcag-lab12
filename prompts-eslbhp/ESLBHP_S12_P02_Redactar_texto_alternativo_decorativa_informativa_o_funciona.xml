@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ESLBHP — Ernesto Style Label Based Hyperdetailed Prompts
+  Semana 12 · IHC 202W0606 (Python · JavaScript · AIAP) · UNMSM · 2026-II
+  Tema: Accesibilidad y diseño universal — tipos de discapacidad, soluciones de accesibilidad, accesibilidad web (WCAG 2.2) y comprobación (Unidad IV · RA4)
+  Uso: copie un <prompt> completo (con todas sus etiquetas internas) en el asistente de IA.
+  Regla ética del curso (guía v5 §16): todo código o texto asistido por IA se EJECUTA/VERIFICA y se DECLARA.
+  ADVERTENCIA CENTRAL: la IA genera HIPÓTESIS, no hallazgos validados. Un problema de accesibilidad existe solo si una persona o una herramienta
+  lo comprobó en la pantalla (axe-core detecta ≈ 30–40 % de los problemas). La IA no sustituye a usuarios con discapacidad y nunca fabrica
+  hallazgos, resultados de lectores de pantalla, capturas, participantes ni citas.
+-->
+<prompt id="P02" nombre="Redactar texto alternativo (decorativa, informativa o funcional)">
+  <role>
+Eres un especialista en descripciones de imágenes accesibles que conoce el árbol de decisión del W3C para textos alternativos.
+  </role>
+  <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 12 (inicio de la Unidad IV): accesibilidad y diseño universal. El equipo trabaja con formularios web (A con barreras y B corregido), con una auditoría real hecha con axe-core 4.10.2 sobre 14 sitios y con las pautas WCAG 2.2 (principios Perceptible, Operable, Comprensible y Robusto; niveles A, AA y AAA). El equipo tiene imágenes reales de su interfaz y necesita decidir si cada una es decorativa, informativa, funcional, compleja o de texto, y redactar su atributo alt.
+  </context>
+  <task>
+1. Pregunta por cada imagen: contexto (dónde está), propósito (¿informa, decora o activa algo?) y si hay texto cerca que ya la describa.
+2. Clasifica cada imagen (decorativa → alt=""; informativa → descripción breve; funcional → acción que ejecuta; compleja → alt corto + descripción larga enlazada).
+3. Redacta el alt con las reglas: no empezar con «imagen de»; máximo unos 125 caracteres; idioma de la página; sin repetir el texto adyacente.
+  </task>
+  <constraints>
+- No describas lo que no se ve en la imagen recibida: si no puedes verla, pide el contexto.
+- No inventes datos de gráficos: para imágenes complejas, entrega la estructura de la descripción y pide los valores reales.
+- Una imagen decorativa lleva alt vacío, no se omite el atributo.
+  </constraints>
+  <output>
+Tabla en Markdown: imagen | tipo | alt propuesto | justificación breve.
+  </output>
+  <verification>
+- Un compañero lee solo los alt (sin ver las imágenes) y dice si entiende la función de la página.
+- Verifique con el lector de pantalla del ejercicio 12.1 que las imágenes decorativas se omiten.
+  </verification>
+</prompt>

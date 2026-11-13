@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+desktop.ini
+# CSV con datos de participantes exportados por los ejercicios HTML
+ejercicio_12_2_verificador_resultados.csv
+ejercicio_12_3_experimento_teclado.csv
+*_PRUEBA_TECNICA_BOT.csv

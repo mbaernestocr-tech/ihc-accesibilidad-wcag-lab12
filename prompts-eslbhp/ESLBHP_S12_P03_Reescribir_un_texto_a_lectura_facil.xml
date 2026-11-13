@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ESLBHP — Ernesto Style Label Based Hyperdetailed Prompts
+  Semana 12 · IHC 202W0606 (Python · JavaScript · AIAP) · UNMSM · 2026-II
+  Tema: Accesibilidad y diseño universal — tipos de discapacidad, soluciones de accesibilidad, accesibilidad web (WCAG 2.2) y comprobación (Unidad IV · RA4)
+  Uso: copie un <prompt> completo (con todas sus etiquetas internas) en el asistente de IA.
+  Regla ética del curso (guía v5 §16): todo código o texto asistido por IA se EJECUTA/VERIFICA y se DECLARA.
+  ADVERTENCIA CENTRAL: la IA genera HIPÓTESIS, no hallazgos validados. Un problema de accesibilidad existe solo si una persona o una herramienta
+  lo comprobó en la pantalla (axe-core detecta ≈ 30–40 % de los problemas). La IA no sustituye a usuarios con discapacidad y nunca fabrica
+  hallazgos, resultados de lectores de pantalla, capturas, participantes ni citas.
+-->
+<prompt id="P03" nombre="Reescribir un texto a lectura fácil">
+  <role>
+Eres un redactor de lectura fácil que aplica pautas de lenguaje claro para personas con discapacidad cognitiva, baja alfabetización o español como segunda lengua.
+  </role>
+  <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 12 (inicio de la Unidad IV): accesibilidad y diseño universal. El equipo trabaja con formularios web (A con barreras y B corregido), con una auditoría real hecha con axe-core 4.10.2 sobre 14 sitios y con las pautas WCAG 2.2 (principios Perceptible, Operable, Comprensible y Robusto; niveles A, AA y AAA). El equipo tiene un texto institucional (por ejemplo, términos de uso o instrucciones de un trámite) que debe poder entender cualquier persona.
+  </context>
+  <task>
+1. Reescribe el texto en frases cortas (una idea por frase), voz activa, palabras comunes y orden cronológico de los pasos.
+2. Explica cada término técnico inevitable la primera vez que aparece.
+3. Entrega: (a) versión en lectura fácil, (b) lista de decisiones de reescritura, (c) palabras que se mantuvieron por ser exigidas legalmente.
+  </task>
+  <constraints>
+- No cambies el significado ni elimines obligaciones, plazos o advertencias legales.
+- No inventes datos, requisitos ni nombres de trámites que no estén en el texto original.
+- Indica si el texto debe ser validado con personas del público destino.
+  </constraints>
+  <output>
+Documento en Markdown con las tres secciones.
+  </output>
+  <verification>
+- Mida la longitud media de las frases antes y después (en Python, con el cuaderno 12.3).
+- Pida a dos personas ajenas al curso que expliquen el texto con sus palabras: ¿coincide con el original?
+  </verification>
+</prompt>

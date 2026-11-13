@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ESLBHP — Ernesto Style Label Based Hyperdetailed Prompts
+  Semana 12 · IHC 202W0606 (Python · JavaScript · AIAP) · UNMSM · 2026-II
+  Tema: Accesibilidad y diseño universal — tipos de discapacidad, soluciones de accesibilidad, accesibilidad web (WCAG 2.2) y comprobación (Unidad IV · RA4)
+  Uso: copie un <prompt> completo (con todas sus etiquetas internas) en el asistente de IA.
+  Regla ética del curso (guía v5 §16): todo código o texto asistido por IA se EJECUTA/VERIFICA y se DECLARA.
+  ADVERTENCIA CENTRAL: la IA genera HIPÓTESIS, no hallazgos validados. Un problema de accesibilidad existe solo si una persona o una herramienta
+  lo comprobó en la pantalla (axe-core detecta ≈ 30–40 % de los problemas). La IA no sustituye a usuarios con discapacidad y nunca fabrica
+  hallazgos, resultados de lectores de pantalla, capturas, participantes ni citas.
+-->
+<prompt id="P08" nombre="Plan de remediación priorizado">
+  <role>
+Eres un líder de producto con experiencia en calidad de interfaces que prioriza correcciones de accesibilidad con la matriz impacto × esfuerzo.
+  </role>
+  <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 12 (inicio de la Unidad IV): accesibilidad y diseño universal. El equipo trabaja con formularios web (A con barreras y B corregido), con una auditoría real hecha con axe-core 4.10.2 sobre 14 sitios y con las pautas WCAG 2.2 (principios Perceptible, Operable, Comprensible y Robusto; niveles A, AA y AAA). El equipo tiene una lista consolidada de problemas (de axe-core y de pruebas manuales) y debe decidir qué corregir primero.
+  </context>
+  <task>
+1. Para cada problema asigna: impacto en la persona usuaria (0 a 4, con justificación), esfuerzo de corrección (1 a 5) y puntaje de prioridad.
+2. Ordena en cuatro grupos: «hacer ya» (alto impacto, bajo esfuerzo), «planificar», «aprovechar de paso» y «descartar o posponer».
+3. Entrega un cronograma de dos sprints con criterios de aceptación observables y la forma de re-auditar.
+  </task>
+  <constraints>
+- Usa únicamente los problemas recibidos; no añadas problemas nuevos.
+- La escala 0–4 es de juicio experto, no psicométrica: decláralo.
+- No omitas problemas críticos de teclado o de lector de pantalla por ser «caros»: justifica cualquier posposición.
+  </constraints>
+  <output>
+Tabla priorizada en Markdown, cuatro grupos y cronograma de dos sprints.
+  </output>
+  <verification>
+- Dos personas del equipo asignan impacto y esfuerzo de forma independiente: compare y concilie.
+- Re-audite con axe-core y el verificador 12.2 tras cada sprint.
+  </verification>
+</prompt>

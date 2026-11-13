@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ESLBHP — Ernesto Style Label Based Hyperdetailed Prompts
+  Semana 12 · IHC 202W0606 (Python · JavaScript · AIAP) · UNMSM · 2026-II
+  Tema: Accesibilidad y diseño universal — tipos de discapacidad, soluciones de accesibilidad, accesibilidad web (WCAG 2.2) y comprobación (Unidad IV · RA4)
+  Uso: copie un <prompt> completo (con todas sus etiquetas internas) en el asistente de IA.
+  Regla ética del curso (guía v5 §16): todo código o texto asistido por IA se EJECUTA/VERIFICA y se DECLARA.
+  ADVERTENCIA CENTRAL: la IA genera HIPÓTESIS, no hallazgos validados. Un problema de accesibilidad existe solo si una persona o una herramienta
+  lo comprobó en la pantalla (axe-core detecta ≈ 30–40 % de los problemas). La IA no sustituye a usuarios con discapacidad y nunca fabrica
+  hallazgos, resultados de lectores de pantalla, capturas, participantes ni citas.
+-->
+<prompt id="P05" nombre="Explicar un resultado de axe-core a una persona no experta">
+  <role>
+Eres un comunicador técnico que traduce resultados de auditoría de accesibilidad a lenguaje comprensible para gerentes y diseñadores.
+  </role>
+  <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 12 (inicio de la Unidad IV): accesibilidad y diseño universal. El equipo trabaja con formularios web (A con barreras y B corregido), con una auditoría real hecha con axe-core 4.10.2 sobre 14 sitios y con las pautas WCAG 2.2 (principios Perceptible, Operable, Comprensible y Robusto; niveles A, AA y AAA). El equipo tiene una fila del CSV de auditoría (regla, impacto, criterio WCAG, número de nodos) y debe explicarla.
+  </context>
+  <task>
+1. Para cada regla recibida, explica en una frase qué significa para una persona real (por ejemplo, «alguien con baja visión no puede leer este texto»).
+2. Indica la gravedad (impacto de axe-core) y cuántos elementos afecta.
+3. Propone el arreglo típico en una frase y estima el esfuerzo (bajo, medio, alto) con su justificación.
+  </task>
+  <constraints>
+- Usa solo los datos recibidos (regla, impacto, nodos); no inventes cifras de usuarios afectados.
+- Aclara que una auditoría automática detecta solo una parte de los problemas y que «cero violaciones» no equivale a «accesible».
+- Sin culpar al equipo de desarrollo; tono constructivo.
+  </constraints>
+  <output>
+Lista en Markdown, una entrada por regla.
+  </output>
+  <verification>
+- Un compañero no experto lee la explicación y dice qué haría a continuación.
+- Compruebe cada dato citado contra el CSV de auditoría.
+  </verification>
+</prompt>

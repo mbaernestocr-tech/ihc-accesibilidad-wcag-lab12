@@ -1,0 +1,65 @@
+@startuml
+' =============================================
+' DIAGRAMA DE ACTIVIDADES - BATD
+' =============================================
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing true
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+skinparam ArrowColor darkgreen
+
+skinparam activity {
+    BackgroundColor #85C1E9
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 13
+}
+
+skinparam activityDiamond {
+    BackgroundColor #F7DC6F
+    BorderColor #5D6D7E
+    FontColor black
+    FontStyle bold
+}
+
+skinparam noteBackgroundColor #FFFFCC
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+
+skinparam partition {
+    BackgroundColor #FBFCFC
+    BorderColor #5D6D7E
+    FontColor black
+    FontStyle bold
+}
+
+title Diagrama de Actividades del Ciclo Auditar - Priorizar - Corregir - Re-auditar
+
+start
+:Seleccionar la página o el formulario a evaluar;
+:Ejecutar la auditoría automática (axe-core);
+:Registrar violaciones, impacto, criterio WCAG y nodos;
+if (¿La carga fue bloqueada o falló?) then (sí)
+    :Marcar el sitio como NO VÁLIDO;
+    stop
+else (no)
+endif
+:Completar con comprobaciones manuales\n(teclado, zoom 200 %, lector de pantalla);
+:Clasificar por POUR y por nivel A / AA / AAA;
+:Priorizar con la matriz impacto × esfuerzo;
+:Corregir con HTML semántico y ARIA mínimo;
+:Re-auditar la versión corregida;
+if (¿Disminuyeron las violaciones críticas y serias?) then (sí)
+    :Documentar y publicar la declaración de accesibilidad;
+else (no)
+    :Revisar la corrección y repetir;
+endif
+stop
+
+@enduml

@@ -1,0 +1,98 @@
+@startuml
+' =============================================
+' PROTOCOLO DE DIAGRAMA DE COMPONENTES - BATD
+' =============================================
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam Padding 10
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing true
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+skinparam ArrowColor darkgreen
+skinparam ArrowFontStyle bold
+
+skinparam component {
+    BackgroundColor #85C1E9
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    BorderThickness 2
+}
+skinparam interface {
+    BackgroundColor #AED6F1
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 12
+}
+skinparam package {
+    BackgroundColor #F7DC6F
+    BorderColor #5D6D7E
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    BorderThickness 2
+}
+skinparam database {
+    BackgroundColor #82E0AA
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+skinparam noteBackgroundColor #FFFFCC
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+
+title Diagrama de Componentes del Sistema de Accesibilidad de la Sesión 12
+
+package "Ejercicios en el navegador (HTML autocontenido)" {
+    component "12.1 Simulador de\ndiscapacidades" as SIM
+    component "12.2 Verificador WCAG 2.2\n(15 criterios)" as VER
+    component "12.3 Experimento\nsolo teclado" as EXP
+    component "Calculadora de contraste\n(luminancia relativa)" as CON
+    component "Lector de pantalla simplificado\n(speechSynthesis)" as LEC
+}
+package "Formularios evaluados" {
+    component "Formulario A\n(con barreras)" as FA
+    component "Formulario B\n(accesible)" as FB
+}
+package "Auditoría real (Python)" {
+    component "Auditor Playwright" as AUD
+    component "axe-core 4.10.2" as AXE
+}
+package "Análisis (Google Colab)" {
+    component "Notebook 12.3" as NB
+}
+interface "CSV de resultados" as ICSV
+database "Auditoría de 14 sitios" as DB1
+database "Registros del experimento" as DB2
+cloud "Sitios web reales\n(7 peruanos + 7 internacionales)" as WEB
+actor "Estudiante" as EST
+actor "Participante" as PAR
+actor "Docente" as DOC
+
+EST --> SIM : activa simulaciones
+SIM --> LEC
+VER --> CON
+VER --> FA : comprueba
+VER --> FB : comprueba
+PAR --> EXP : usa solo teclado
+EXP --> FA
+EXP --> FB
+EXP --> DB2
+VER --> ICSV
+DB2 --> ICSV
+DOC --> AUD : ejecuta
+AUD --> WEB : visita
+AUD --> AXE : inyecta
+AXE --> DB1
+DB1 --> ICSV
+ICSV --> NB : se analiza
+
+@enduml

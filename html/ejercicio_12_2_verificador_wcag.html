@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!-- ========================================================= -->
+<!-- Ejercicio 12.2 -- Calculadora de contraste y verificador WCAG 2.2 (formulario A vs. B) -->
+<!-- Sesión 12 IHC (UNMSM, 2026-II) · archivo .html autocontenido · Fuente de datos: A (DOM real del navegador) -->
+<!-- Limitación declarada: las comprobaciones automáticas cubren solo una parte de WCAG (≈ 30–40 % de los problemas). -->
+<!-- ========================================================= -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ejercicio 12.2 · Verificador WCAG 2.2</title>
+<style>
+  :root{--fondo:#10122B;--panel:#1A1D44;--panel2:#262A5E;--texto:#EEF0FF;--suave:#A9AEDD;--ok:#3DDC97;--mal:#FF5C7A;--aviso:#FFC857;--acento:#7C83FF}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--fondo);color:var(--texto);line-height:1.45}
+  header{padding:18px 24px;background:linear-gradient(120deg,#10122B,#2B2F7A);border-bottom:3px solid var(--acento)}
+  header h1{font-size:1.35rem} header p{color:var(--suave);font-size:.9rem;margin-top:4px}
+  section.bloque{margin:16px 24px;background:var(--panel);border-radius:14px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  section.bloque>h2{font-size:1.05rem;color:var(--aviso);margin-bottom:10px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media(max-width:900px){.cols{grid-template-columns:1fr}}
+  .muestra{padding:14px;border-radius:10px;background:#fff;color:#222}
+  .fila{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:8px 0}
+  .fila label{font-weight:600}
+  input[type=color]{width:54px;height:34px;border:0;background:none;cursor:pointer}
+  input[type=text].c,input[type=number]{background:var(--panel2);color:var(--texto);border:1px solid #4a50a0;border-radius:7px;padding:7px;width:110px}
+  .num{font-size:2rem;font-weight:800}
+  .pill{display:inline-block;padding:3px 10px;border-radius:999px;font-weight:700;font-size:.8rem;margin:2px}
+  .pass{background:#0e3b2b;color:var(--ok);border:1px solid var(--ok)} .fail{background:#431623;color:var(--mal);border:1px solid var(--mal)}
+  button.btn{background:linear-gradient(135deg,var(--acento),#5560ff);color:#fff;border:0;padding:9px 16px;border-radius:9px;font-weight:700;cursor:pointer}
+  button.btn.sec{background:var(--panel2);border:1px solid #4a50a0} button.btn:hover{filter:brightness(1.12)}
+  /* Anillo de foco visible PARA LA INTERFAZ DEL EJERCICIO (la sección A del formulario lo quita a propósito) */
+  .ui button:focus,.ui input:focus,.ui textarea:focus,.ui select:focus,.ui a:focus{outline:3px solid var(--aviso);outline-offset:2px}
+  table.res{width:100%;border-collapse:collapse;font-size:.85rem}
+  table.res th,table.res td{border-bottom:1px solid #3a3f86;padding:6px;text-align:left;vertical-align:top}
+  td.ok{color:var(--ok);font-weight:700} td.ko{color:var(--mal);font-weight:700} td.na{color:var(--aviso);font-weight:700}
+  textarea.snip{width:100%;height:140px;background:#0a0b1e;color:#b9f6ca;border:1px solid #3a3f86;border-radius:8px;padding:8px;font-family:Consolas,monospace;font-size:.78rem}
+  /* ----- Formulario A (INACCESIBLE a propósito) ----- */
+  #formA{background:#fff;color:#222;padding:14px;border-radius:10px}
+  #formA .t{font-size:1.3rem;font-weight:700;color:#0c4a8a}
+  #formA input{border:1px solid #ddd;outline:none;padding:6px;width:100%;margin:4px 0;color:#999}
+  #formA .btnA{display:inline-block;background:#9ed0ff;color:#fff;padding:3px 7px;font-size:11px;border-radius:4px;cursor:pointer}
+  #formA .err{color:#e57373}
+  #formA a.vacio{display:inline-block;width:14px;height:14px;background:#ccc}
+  /* ----- Formulario B (ACCESIBLE) ----- */
+  #formB{background:#fff;color:#1b1b1b;padding:14px;border-radius:10px}
+  #formB h2{font-size:1.2rem;color:#0b3d75} #formB a{display:inline-block;min-height:24px;padding:2px 0;color:#0b3d75}
+  #formB label{display:block;font-weight:600;margin-top:8px}
+  #formB input{width:100%;padding:10px;border:2px solid #4a5568;border-radius:6px;font-size:1rem;color:#1b1b1b;min-height:44px}
+  #formB input:focus,#formB button:focus,#formB a:focus{outline:3px solid #0b57d0;outline-offset:2px}
+  #formB .btnB{margin-top:10px;background:#0b3d75;color:#fff;border:0;border-radius:6px;padding:10px 18px;font-size:1rem;min-height:44px;cursor:pointer}
+  #formB .err{color:#8a1c1c;font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <h1>Ejercicio 12.2 · Calculadora de contraste y verificador WCAG 2.2</h1>
+  <p>«Medir» y «corregir»: calcule la <strong>razón de contraste</strong>, y compruebe en vivo 15 criterios sobre un formulario <strong>A</strong> (con barreras sembradas) y su versión <strong>B</strong> (corregida).</p>
+</header>
+
+<div class="ui">
+<section class="bloque" aria-labelledby="h-con">
+  <h2 id="h-con">1 · Calculadora de contraste (criterios 1.4.3 y 1.4.11)</h2>
+  <div class="cols">
+    <div>
+      <div class="fila"><label for="fg">Color del texto</label><input type="color" id="fg" value="#767676"><input class="c" type="text" id="fgt" value="#767676" aria-label="Color del texto en hexadecimal"></div>
+      <div class="fila"><label for="bg">Color del fondo</label><input type="color" id="bg" value="#ffffff"><input class="c" type="text" id="bgt" value="#ffffff" aria-label="Color del fondo en hexadecimal"></div>
+      <p>Razón de contraste: <span class="num" id="razon" aria-live="polite">4.54</span> : 1</p>
+      <div id="pills" aria-live="polite"></div>
+    </div>
+    <div class="muestra" id="muestra"><p style="font-size:18pt;font-weight:700">Texto grande (≥ 18 pt o 14 pt en negrita)</p><p style="font-size:12pt">Texto normal de ejemplo para leer en pantalla.</p></div>
+  </div>
+  <p style="margin-top:8px;color:var(--suave);font-size:.85rem">Fórmulas: L = 0,2126 R + 0,7152 G + 0,0722 B (con cada canal linealizado) y razón = (L1 + 0,05) / (L2 + 0,05), con L1 ≥ L2. Umbrales AA: 4,5 (texto normal), 3 (texto grande y componentes de interfaz); AAA: 7 y 4,5.</p>
+</section>
+
+<section class="bloque" aria-labelledby="h-ver">
+  <h2 id="h-ver">2 · Verificador en vivo: formulario A (inaccesible) frente al B (accesible)</h2>
+  <div class="cols">
+    <div><h3 style="margin-bottom:6px">Formulario A</h3>
+      <!-- A: sin alt, sin label, tabindex positivo, div clicable, foco oculto, contraste bajo, objetivo pequeño, enlace vacío, error solo por color, sin autocomplete -->
+      <div id="formA" aria-label="Formulario A">
+        <div class="t">Inscripción al taller</div>
+        <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='30'%3E%3Crect width='80' height='30' fill='%230c4a8a'/%3E%3C/svg%3E" width="80" height="30">
+        <h4 style="font-size:.9rem;margin-top:6px">Datos del participante</h4>
+        <input type="text" id="a-nom" placeholder="Nombre completo" tabindex="3">
+        <input type="text" id="a-cor" placeholder="Correo electrónico" tabindex="2">
+        <input type="text" id="a-dni" placeholder="Documento" tabindex="1">
+        <p class="err" style="font-size:.85rem">El correo no es válido</p>
+        <a class="vacio" href="#" aria-label=""></a>
+        <div class="btnA" onclick="void 0">Enviar</div>
+      </div></div>
+    <div><h3 style="margin-bottom:6px">Formulario B</h3>
+      <div id="formB" aria-label="Formulario B">
+        <h2 id="b-tit">Inscripción al taller</h2>
+        <img alt="Logotipo del taller de accesibilidad" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='30'%3E%3Crect width='80' height='30' fill='%230b3d75'/%3E%3C/svg%3E" width="80" height="30">
+        <h3 style="font-size:1rem;margin-top:6px">Datos del participante</h3>
+        <form novalidate aria-labelledby="b-tit">
+          <label for="b-nom">Nombre completo (obligatorio)</label>
+          <input type="text" id="b-nom" name="nombre" autocomplete="name" required aria-required="true">
+          <label for="b-cor">Correo electrónico (obligatorio)</label>
+          <input type="email" id="b-cor" name="correo" autocomplete="email" required aria-required="true" aria-invalid="true" aria-describedby="b-err">
+          <p id="b-err" class="err" role="alert">Error: el correo debe incluir una arroba, por ejemplo nombre@ejemplo.com</p>
+          <label for="b-dni">Documento de identidad (obligatorio)</label>
+          <input type="text" id="b-dni" name="documento" autocomplete="off" required aria-required="true" inputmode="numeric">
+          <p><a href="#privacidad">Leer la política de privacidad</a></p>
+          <button type="button" class="btnB">Enviar inscripción</button>
+        </form>
+      </div></div>
+  </div>
+  <div class="fila" style="margin-top:12px">
+    <button class="btn" id="verificar">Verificar A y B</button>
+    <button class="btn sec" id="csv">Exportar CSV</button>
+    <span id="resumen" role="status" aria-live="polite" style="font-weight:700"></span>
+  </div>
+  <table class="res" id="res" aria-label="Resultados del verificador"><thead><tr><th>#</th><th>Criterio WCAG 2.2 (nivel)</th><th>A</th><th>B</th><th>Detalle de A</th></tr></thead><tbody></tbody></table>
+</section>
+
+<section class="bloque" aria-labelledby="h-snip">
+  <h2 id="h-snip">3 · Fragmento para ejecutar en DevTools sobre CUALQUIER sitio</h2>
+  <p style="color:var(--suave);font-size:.88rem;margin-bottom:6px">Abra un sitio real, pulse F12, pestaña <em>Console</em>, pegue el fragmento y Enter. Cuenta señales de problema (no reemplaza a axe-core ni a una revisión manual).</p>
+  <textarea class="snip" id="snip" readonly aria-label="Fragmento de código para la consola"></textarea>
+  <div class="fila"><button class="btn sec" id="copiar">Copiar fragmento</button></div>
+</section>
+</div>
+
+<script>
+// ---------- Contraste WCAG: luminancia relativa y razón ----------
+const $ = s => document.querySelector(s);
+function hex2rgb(h){ h = h.replace('#',''); if (h.length===3) h = h.split('').map(c=>c+c).join(''); const n = parseInt(h,16); return [(n>>16)&255,(n>>8)&255,n&255]; }
+function lin(c){ c /= 255; return c <= 0.04045 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
+function lum([r,g,b]){ return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b); }
+function razon(a,b){ const l1 = lum(a), l2 = lum(b); return (Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05); }
+function pintarContraste(){
+  const f = $('#fgt').value, b = $('#bgt').value;
+  if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(f) || !/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(b)) return;
+  const r = razon(hex2rgb(f), hex2rgb(b));
+  $('#razon').textContent = (Math.floor(r*100)/100).toFixed(2);     // se trunca, no se redondea (4,499 no pasa 4,5)
+  const p = (t, ok) => `<span class="pill ${ok?'pass':'fail'}">${t}: ${ok?'cumple':'no cumple'}</span>`;
+  $('#pills').innerHTML = p('AA texto normal (4,5)', r>=4.5) + p('AA texto grande (3)', r>=3) + p('AAA texto normal (7)', r>=7) + p('AAA texto grande (4,5)', r>=4.5) + p('Componentes UI (3)', r>=3);
+  $('#muestra').style.color = f; $('#muestra').style.background = b;
+}
+[['fg','fgt'],['bg','bgt']].forEach(([c,t]) => {
+  $('#'+c).addEventListener('input', e => { $('#'+t).value = e.target.value; pintarContraste(); });
+  $('#'+t).addEventListener('input', e => { if (/^#[0-9a-f]{6}$/i.test(e.target.value)) $('#'+c).value = e.target.value; pintarContraste(); });
+});
+pintarContraste();
+
+// ---------- Verificador: 15 comprobaciones sobre un contenedor (Fuente A: DOM real) ----------
+const NOMBRES_ROL = new Set(['alert','button','link','dialog','navigation','main','banner','form','search','status','img','list','listitem','tab','tablist','tabpanel','checkbox','radio','textbox','heading','region','group','menu','menuitem','switch','combobox','progressbar','slider']);
+function visible(e){ const r = e.getBoundingClientRect(), s = getComputedStyle(e); return r.width>0 && r.height>0 && s.visibility!=='hidden' && s.display!=='none'; }
+function nombreAcc(e){
+  if (e.getAttribute('aria-label')) return e.getAttribute('aria-label').trim();
+  const lb = e.getAttribute('aria-labelledby'); if (lb) return lb.split(/\s+/).map(i => (document.getElementById(i)||{}).textContent||'').join(' ').trim();
+  if (e.id){ const l = document.querySelector(`label[for="${CSS.escape(e.id)}"]`); if (l) return l.textContent.trim(); }
+  if (e.closest('label')) return e.closest('label').textContent.trim();
+  if (e.getAttribute('title')) return e.getAttribute('title').trim();
+  if (e.tagName==='IMG') return e.getAttribute('alt')||'';
+  return (e.textContent||'').trim();
+}
+function colorEfectivoFondo(e){ let n = e; while (n){ const c = getComputedStyle(n).backgroundColor; if (c && c!=='rgba(0, 0, 0, 0)' && c!=='transparent') return c; n = n.parentElement; } return 'rgb(255,255,255)'; }
+function rgbDe(c){ const m = c.match(/[\d.]+/g).map(Number); return m.slice(0,3); }
+function verificar(raiz){
+  const r = [], v = sel => [...raiz.querySelectorAll(sel)].filter(visible);
+  const add = (id, crit, ok, det) => r.push({id, crit, ok, det});
+  const imgs = v('img'); const sinAlt = imgs.filter(i => !i.hasAttribute('alt'));
+  add(1,'1.1.1 Contenido no textual: alt (A)', sinAlt.length===0, `${sinAlt.length} de ${imgs.length} imágenes sin alt`);
+  const campos = v('input:not([type=hidden]):not([type=submit]):not([type=button]),select,textarea'); const tieneEt = c => !!(c.getAttribute('aria-label') || c.getAttribute('aria-labelledby') || c.closest('label') || (c.id && document.querySelector(`label[for="${CSS.escape(c.id)}"]`))); const sinEt = campos.filter(c => !tieneEt(c));
+  add(2,'1.3.1 / 3.3.2 Etiquetas e instrucciones (A)', sinEt.length===0, `${sinEt.length} de ${campos.length} campos sin etiqueta asociada (el placeholder no es etiqueta)`);
+  add(3,'3.1.1 Idioma de la página (A)', !!document.documentElement.lang, `lang="${document.documentElement.lang||''}"`);
+  // foco visible: se enfoca cada campo y se mira outline/box-shadow
+  let sinFoco = 0; const ae = document.activeElement;
+  campos.concat(v('button,a[href]')).forEach(e => { e.focus({preventScroll:true}); const s = getComputedStyle(e); const out = s.outlineStyle!=='none' && parseFloat(s.outlineWidth)>0; const sh = s.boxShadow && s.boxShadow!=='none'; if (!out && !sh) sinFoco++; });
+  if (ae && ae.focus) ae.focus({preventScroll:true}); else document.activeElement.blur();
+  add(4,'2.4.7 Foco visible (AA)', sinFoco===0, `${sinFoco} elementos enfocables sin indicador de foco`);
+  const tabPos = [...raiz.querySelectorAll('[tabindex]')].filter(e => parseInt(e.getAttribute('tabindex'))>0);
+  add(5,'2.4.3 Orden del foco: sin tabindex positivo (A)', tabPos.length===0, `${tabPos.length} elementos con tabindex > 0`);
+  const objs = v('a[href],button,input:not([type=hidden]),select,textarea,[onclick]'); const chicos = objs.filter(e => { const b = e.getBoundingClientRect(); return b.width<24 || b.height<24; });
+  add(6,'2.5.8 Tamaño del objetivo ≥ 24×24 px (AA)', chicos.length===0, `${chicos.length} de ${objs.length} objetivos menores de 24×24`);
+  const textos = v('p,label,h1,h2,h3,h4,a,button,div.btnA,input,.t,.err'); let bajos = 0;
+  textos.forEach(e => { const s = getComputedStyle(e); const fg = rgbDe(s.color), bg = rgbDe(colorEfectivoFondo(e)); const grande = parseFloat(s.fontSize) >= 24 || (parseFloat(s.fontSize) >= 18.66 && parseInt(s.fontWeight) >= 700); const min = grande ? 3 : 4.5; if (e.textContent.trim() || e.tagName==='INPUT') if (razon(fg,bg) < min) bajos++; });
+  add(7,'1.4.3 Contraste mínimo (AA)', bajos===0, `${bajos} elementos de texto por debajo de 4,5:1 (3:1 en texto grande)`);
+  const malAria = [...raiz.querySelectorAll('[role]')].filter(e => !NOMBRES_ROL.has(e.getAttribute('role'))).length + [...raiz.querySelectorAll('[aria-labelledby],[aria-describedby]')].filter(e => (e.getAttribute('aria-labelledby')||e.getAttribute('aria-describedby')).split(/\s+/).some(i => !document.getElementById(i))).length;
+  add(8,'4.1.2 ARIA válido y referencias existentes (A)', malAria===0, `${malAria} usos erróneos de role o referencias aria rotas`);
+  const hs = v('h1,h2,h3,h4,h5,h6').map(h => +h.tagName[1]); let salto = 0; for (let i=1;i<hs.length;i++) if (hs[i]-hs[i-1] > 1) salto++; if (hs.length && hs[0] > 2) salto++;
+  add(9,'1.3.1 / 2.4.6 Encabezados con jerarquía (A/AA)', hs.length>0 && salto===0, hs.length===0 ? 'sin encabezados' : `${salto} saltos de nivel (${hs.map(n=>'h'+n).join(' ')})`);
+  const btnSinNombre = v('button,[role=button],input[type=submit],input[type=button]').filter(b => !nombreAcc(b)).length;
+  add(10,'4.1.2 Botones con nombre accesible (A)', btnSinNombre===0, `${btnSinNombre} botones sin nombre`);
+  const enlSinTxt = v('a[href]').filter(a => !nombreAcc(a)).length;
+  add(11,'2.4.4 Propósito de los enlaces (A)', enlSinTxt===0, `${enlSinTxt} enlaces sin texto accesible`);
+  const personales = campos.filter(c => /nom|name|cor|mail|doc|dni|tel/i.test((c.id||'')+(c.name||'')+(c.placeholder||''))); const sinAuto = personales.filter(c => !c.getAttribute('autocomplete'));
+  add(12,'1.3.5 Identificar el propósito de la entrada: autocomplete (AA)', sinAuto.length===0, `${sinAuto.length} de ${personales.length} campos personales sin autocomplete`);
+  const errs = v('.err'); const errMal = errs.filter(e => !e.getAttribute('role') && !e.getAttribute('aria-live') && !e.id);
+  add(13,'3.3.1 Identificación del error en texto asociado (A)', errMal.length===0, `${errMal.length} mensajes de error sin role="alert" / aria-describedby`);
+  const falsos = v('[onclick]').filter(e => !['A','BUTTON','INPUT'].includes(e.tagName) && !e.getAttribute('role') && e.getAttribute('tabindex')===null);
+  add(14,'2.1.1 Teclado: no usar <div> como botón (A)', falsos.length===0, `${falsos.length} elementos clicables que no son enfocables ni tienen rol`);
+  const oblig = campos.filter(c => /obligatorio|\*/i.test((document.querySelector(`label[for="${CSS.escape(c.id||'_')}"]`)||{}).textContent||'')); const sinReq = oblig.filter(c => !c.required && c.getAttribute('aria-required')!=='true');
+  const hayOblig = campos.length>0 && oblig.length===0 ? 'no se indica ningún campo obligatorio' : '';
+  add(15,'3.3.2 / 1.3.1 Campos obligatorios indicados programáticamente (A)', oblig.length>0 && sinReq.length===0, hayOblig || `${sinReq.length} campos obligatorios sin required/aria-required`);
+  return r;
+}
+let ultimo = {A:[], B:[]};
+function correr(){
+  ultimo.A = verificar($('#formA')); ultimo.B = verificar($('#formB'));
+  const tb = $('#res tbody'); tb.innerHTML = '';
+  ultimo.A.forEach((a,i) => { const b = ultimo.B[i];
+    tb.insertAdjacentHTML('beforeend', `<tr><td>${a.id}</td><td>${a.crit}</td><td class="${a.ok?'ok':'ko'}">${a.ok?'Cumple':'No cumple'}</td><td class="${b.ok?'ok':'ko'}">${b.ok?'Cumple':'No cumple'}</td><td>${a.det}</td></tr>`); });
+  const pa = ultimo.A.filter(x=>x.ok).length, pb = ultimo.B.filter(x=>x.ok).length;
+  $('#resumen').textContent = `A cumple ${pa} de 15 · B cumple ${pb} de 15`;
+}
+$('#verificar').addEventListener('click', correr);
+$('#csv').addEventListener('click', () => {
+  if (!ultimo.A.length) correr();
+  const f = ['id,criterio,formulario_A,formulario_B,detalle_A'].concat(ultimo.A.map((a,i) => [a.id, `"${a.crit}"`, a.ok?'cumple':'no cumple', ultimo.B[i].ok?'cumple':'no cumple', `"${a.det}"`].join(','))).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿'+f], {type:'text/csv;charset=utf-8'})); a.download = 'ejercicio_12_2_verificador_resultados.csv'; a.click();
+});
+
+// ---------- Fragmento para DevTools (señales de problema en cualquier sitio) ----------
+const SNIP = `(() => {
+  const q = s => [...document.querySelectorAll(s)];
+  const r = {
+    url: location.href, lang: document.documentElement.lang || '(vacío)',
+    imagenes_sin_alt: q('img:not([alt])').length,
+    campos_sin_etiqueta: q('input:not([type=hidden]):not([type=submit]):not([type=button]),select,textarea').filter(c => !c.getAttribute('aria-label') && !c.getAttribute('aria-labelledby') && !c.closest('label') && !(c.id && document.querySelector('label[for="'+CSS.escape(c.id)+'"]'))).length,
+    botones_sin_nombre: q('button,[role=button]').filter(b => !(b.getAttribute('aria-label') || b.textContent.trim() || b.title)).length,
+    enlaces_vacios: q('a[href]').filter(a => !(a.getAttribute('aria-label') || a.textContent.trim() || a.querySelector('img[alt]:not([alt=""])') || a.title)).length,
+    tabindex_positivo: q('[tabindex]').filter(e => parseInt(e.getAttribute('tabindex')) > 0).length,
+    h1: q('h1').length, divs_clicables: q('div[onclick],span[onclick]').length
+  };
+  console.table(r); return r;
+})();`;
+$('#snip').value = SNIP;
+$('#copiar').addEventListener('click', async () => { try { await navigator.clipboard.writeText(SNIP); $('#copiar').textContent = '¡Copiado!'; } catch(e) { $('#snip').select(); } });
+window.__verificar = correr; window.__ultimo = () => ultimo;
+</script>
+</body>
+</html>

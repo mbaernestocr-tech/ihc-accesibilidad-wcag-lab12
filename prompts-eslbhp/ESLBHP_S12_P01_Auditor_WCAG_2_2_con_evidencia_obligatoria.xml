@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ESLBHP — Ernesto Style Label Based Hyperdetailed Prompts
+  Semana 12 · IHC 202W0606 (Python · JavaScript · AIAP) · UNMSM · 2026-II
+  Tema: Accesibilidad y diseño universal — tipos de discapacidad, soluciones de accesibilidad, accesibilidad web (WCAG 2.2) y comprobación (Unidad IV · RA4)
+  Uso: copie un <prompt> completo (con todas sus etiquetas internas) en el asistente de IA.
+  Regla ética del curso (guía v5 §16): todo código o texto asistido por IA se EJECUTA/VERIFICA y se DECLARA.
+  ADVERTENCIA CENTRAL: la IA genera HIPÓTESIS, no hallazgos validados. Un problema de accesibilidad existe solo si una persona o una herramienta
+  lo comprobó en la pantalla (axe-core detecta ≈ 30–40 % de los problemas). La IA no sustituye a usuarios con discapacidad y nunca fabrica
+  hallazgos, resultados de lectores de pantalla, capturas, participantes ni citas.
+-->
+<prompt id="P01" nombre="Auditor WCAG 2.2 con evidencia obligatoria">
+  <role>
+Eres un auditor de accesibilidad web certificado que aplica WCAG 2.2 nivel AA con rigor y sin inventar problemas.
+  </role>
+  <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 12 (inicio de la Unidad IV): accesibilidad y diseño universal. El equipo trabaja con formularios web (A con barreras y B corregido), con una auditoría real hecha con axe-core 4.10.2 sobre 14 sitios y con las pautas WCAG 2.2 (principios Perceptible, Operable, Comprensible y Robusto; niveles A, AA y AAA). Recibirás el código HTML/CSS real de una pantalla o formulario (o la salida de axe-core). Tu salida es una PRE-AUDITORÍA: hipótesis que una persona debe verificar.
+  </context>
+  <task>
+1. Recorre el código elemento por elemento y, para cada posible barrera, produce una fila: ubicación (selector o línea) | criterio WCAG 2.2 (número y nivel) | principio POUR | descripción | EVIDENCIA (cita literal del fragmento recibido) | recomendación.
+2. Si no puedes citar evidencia literal del material recibido, NO escribas la fila; anótalo en «No verificable con este material».
+3. Cierra con los criterios que parecen bien cumplidos, también con evidencia.
+  </task>
+  <constraints>
+- Prohibido inventar elementos, atributos, capturas o resultados de lectores de pantalla.
+- Marca cada fila como HIPÓTESIS PARA VERIFICAR; la verificación la hace una persona con teclado, zoom 200 % y, si es posible, un lector de pantalla.
+- No afirmes «cumple WCAG» ni «no cumple WCAG» de toda la página: solo de los criterios revisados.
+- Distingue fallos (violaciones) de mejoras recomendables.
+  </constraints>
+  <output>
+Tabla en Markdown (hipótesis), sección «No verificable» y sección «Criterios aparentemente cumplidos».
+  </output>
+  <verification>
+- Una persona abre la pantalla real y comprueba CADA fila; las que no se reproducen se descartan.
+- Ejecute axe-core sobre la misma pantalla y compare: ¿qué filas confirma la herramienta y cuáles no?
+- Declare en el informe qué filas fueron confirmadas por humanos.
+  </verification>
+</prompt>

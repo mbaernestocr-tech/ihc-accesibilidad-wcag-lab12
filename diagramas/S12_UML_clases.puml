@@ -1,0 +1,159 @@
+@startuml
+' =============================================
+' PROTOCOLO DE DIAGRAMA DE CLASES - BATD
+' =============================================
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam Padding 10
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing true
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+
+' --- NEGRITAS GLOBALES ---
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+
+' --- FLECHAS ---
+skinparam ArrowColor darkgreen
+skinparam ArrowFontStyle bold
+skinparam ArrowFontColor black
+
+' --- CLASE ---
+skinparam class {
+    BackgroundColor #85C1E9
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    AttributeFontColor black
+    AttributeFontSize 12
+    AttributeFontStyle plain
+    StereotypeFontColor #5D6D7E
+    StereotypeFontSize 11
+    StereotypeFontStyle italic
+    HeaderBackgroundColor #5DADE2
+    BorderThickness 2
+}
+
+' --- INTERFAZ ---
+skinparam interface {
+    BackgroundColor #AED6F1
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+
+' --- CLASE ABSTRACTA ---
+skinparam abstract {
+    BackgroundColor #AED6F1
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    HeaderBackgroundColor #85C1E9
+}
+
+' --- ENUMERACIÓN ---
+skinparam enum {
+    BackgroundColor #F7DC6F
+    BorderColor #5D6D7E
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    AttributeFontColor black
+    AttributeFontSize 12
+}
+
+' --- PAQUETE ---
+skinparam package {
+    BackgroundColor #F7DC6F
+    BorderColor #5D6D7E
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    BorderThickness 2
+}
+
+' --- NOTAS ---
+skinparam noteBackgroundColor #FFFFCC
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+
+' --- LEYENDA ---
+skinparam legendBackgroundColor #FBFCFC
+skinparam legendBorderColor #5D6D7E
+skinparam legendFontColor black
+skinparam legendFontSize 11
+
+title Diagrama de Clases de la Auditoría de Accesibilidad
+
+class Sitio {
+    - nombre : String
+    - pais : String
+    - url : String
+    - estado : String
+    + esValido() : Boolean
+}
+class Auditoria {
+    - fechaHora : DateTime
+    - herramienta : String
+    - version : String
+    + ejecutar() : List<Violacion>
+    + exportarCsv() : File
+}
+class Regla {
+    - id : String
+    - descripcion : String
+    - impacto : Impacto
+}
+class Violacion {
+    - nodosAfectados : Integer
+    + severidad() : Impacto
+}
+class CriterioWCAG {
+    - numero : String
+    - nivel : Nivel
+    - principio : Principio
+}
+class Nodo {
+    - selector : String
+    - html : String
+}
+class Remediacion {
+    - accion : String
+    - prioridad : Integer
+    - esfuerzo : Integer
+    + puntaje() : Double
+}
+enum Impacto {
+    critical
+    serious
+    moderate
+    minor
+}
+enum Nivel {
+    A
+    AA
+    AAA
+}
+enum Principio {
+    Perceptible
+    Operable
+    Comprensible
+    Robusto
+}
+
+Sitio "1" -- "0..*" Auditoria : se audita en
+Auditoria "1" *-- "0..*" Violacion : contiene
+Violacion "*" --> "1" Regla : incumple
+Regla "*" --> "1..*" CriterioWCAG : evalúa
+Violacion "1" *-- "1..*" Nodo : afecta a
+Violacion "1" --> "0..*" Remediacion : se corrige con
+Regla ..> Impacto
+CriterioWCAG ..> Nivel
+CriterioWCAG ..> Principio
+
+@enduml

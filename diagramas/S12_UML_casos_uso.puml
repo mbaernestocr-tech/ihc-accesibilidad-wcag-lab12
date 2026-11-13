@@ -1,0 +1,86 @@
+@startuml
+' =============================================
+' DIAGRAMA DE CASOS DE USO - BATD
+' =============================================
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing true
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+skinparam ArrowColor darkgreen
+
+skinparam actor {
+    BackgroundColor #85C1E9
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+
+skinparam usecase {
+    BackgroundColor #85C1E9
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 12
+}
+
+skinparam rectangle {
+    BackgroundColor #FBFCFC
+    BorderColor #5D6D7E
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    RoundCorner 10
+}
+
+skinparam noteBackgroundColor #FFFFCC
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+
+title Diagrama de Casos de Uso del Sistema de Accesibilidad de la Sesión 12
+
+left to right direction
+actor "Estudiante" as EST
+actor "Participante" as PAR
+actor "Docente" as DOC
+actor "Sitio web real" as WEB
+
+rectangle "Sistema de accesibilidad de la Sesión 12" {
+    usecase "Simular discapacidades" as CU01
+    usecase "Escuchar el lector de pantalla" as CU02
+    usecase "Medir la razón de contraste" as CU03
+    usecase "Verificar formularios A y B" as CU04
+    usecase "Exportar CSV" as CU05
+    usecase "Hacer la tarea solo con teclado" as CU06
+    usecase "Responder la escala SEQ" as CU07
+    usecase "Auditar 14 sitios con axe-core" as CU08
+    usecase "Analizar resultados en Colab" as CU09
+    usecase "Priorizar remediaciones" as CU10
+    usecase "Registrar clics fallidos y tiempo" as INC1
+    usecase "Marcar sitio NO VÁLIDO" as EXT1
+}
+EST --> CU01
+EST --> CU03
+EST --> CU04
+EST --> CU09
+EST --> CU10
+PAR --> CU06
+PAR --> CU07
+DOC --> CU08
+DOC --> CU09
+WEB <-- CU08
+
+CU01 ..> CU02 : <<include>>
+CU01 ..> INC1 : <<include>>
+CU04 ..> CU03 : <<include>>
+CU04 ..> CU05 : <<include>>
+CU06 ..> CU05 : <<include>>
+CU09 ..> CU05 : <<include>>
+EXT1 .up.> CU08 : <<extend>>
+
+@enduml

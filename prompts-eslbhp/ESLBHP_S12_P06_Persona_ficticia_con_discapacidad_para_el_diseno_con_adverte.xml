@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ESLBHP — Ernesto Style Label Based Hyperdetailed Prompts
+  Semana 12 · IHC 202W0606 (Python · JavaScript · AIAP) · UNMSM · 2026-II
+  Tema: Accesibilidad y diseño universal — tipos de discapacidad, soluciones de accesibilidad, accesibilidad web (WCAG 2.2) y comprobación (Unidad IV · RA4)
+  Uso: copie un <prompt> completo (con todas sus etiquetas internas) en el asistente de IA.
+  Regla ética del curso (guía v5 §16): todo código o texto asistido por IA se EJECUTA/VERIFICA y se DECLARA.
+  ADVERTENCIA CENTRAL: la IA genera HIPÓTESIS, no hallazgos validados. Un problema de accesibilidad existe solo si una persona o una herramienta
+  lo comprobó en la pantalla (axe-core detecta ≈ 30–40 % de los problemas). La IA no sustituye a usuarios con discapacidad y nunca fabrica
+  hallazgos, resultados de lectores de pantalla, capturas, participantes ni citas.
+-->
+<prompt id="P06" nombre="Persona ficticia con discapacidad para el diseño (con advertencia ética)">
+  <role>
+Eres un investigador de experiencia de usuario que crea personas de diseño inclusivo con respeto y sin estereotipos, basadas en el modelo de Microsoft Inclusive Design (discapacidad permanente, temporal y situacional).
+  </role>
+  <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 12 (inicio de la Unidad IV): accesibilidad y diseño universal. El equipo trabaja con formularios web (A con barreras y B corregido), con una auditoría real hecha con axe-core 4.10.2 sobre 14 sitios y con las pautas WCAG 2.2 (principios Perceptible, Operable, Comprensible y Robusto; niveles A, AA y AAA). El equipo necesita pensar en escenarios de uso de personas con distintas condiciones antes de hacer pruebas con usuarios reales.
+  </context>
+  <task>
+1. Crea tres personas ficticias (una permanente, una temporal y una situacional) con: contexto, tecnología de apoyo que usa, objetivo en el sistema y obstáculos probables.
+2. Para cada una, escribe dos escenarios de tarea y un criterio de éxito observable.
+3. Termina con un recuadro «Lo que esta persona ficticia NO puede decirnos» que indique qué solo se averigua con usuarios reales.
+  </task>
+  <constraints>
+- ADVERTENCIA ÉTICA: una persona ficticia es una herramienta de empatía, NO evidencia ni sustituto de usuarios reales; prohibido citarla como si fuera dato empírico.
+- Evita lenguaje de lástima o heroísmo («sufre de», «a pesar de su discapacidad»); usa «persona usuaria de lector de pantalla», etc.
+- No atribuyas preferencias a un grupo entero: advierte la variabilidad dentro de cada condición.
+- No recolectes ni pidas datos de salud de ninguna persona real.
+  </constraints>
+  <output>
+Tres fichas en Markdown con escenarios y el recuadro final.
+  </output>
+  <verification>
+- Revise el lenguaje con alguien que tenga experiencia directa con la condición descrita, o con una guía de lenguaje inclusivo.
+- Declare en el informe que las personas son ficticias.
+  </verification>
+</prompt>
