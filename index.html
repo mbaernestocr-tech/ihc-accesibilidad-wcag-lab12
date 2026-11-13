@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 12 IHC · Accesibilidad WCAG 2.2</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--mut:#555;--card:#f3f6fa;--bd:#c9d3df;--ac:#0c4a8a}
+@media (prefers-color-scheme:dark){:root{--bg:#121820;--fg:#eef2f6;--mut:#b4c0cc;--card:#1b2530;--bd:#3a4858;--ac:#8cc4ff}}
+body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.6 system-ui,Segoe UI,Arial,sans-serif}
+main{max-width:46rem;margin:0 auto;padding:1.5rem 1rem 3rem}
+h1{font-size:1.6rem;line-height:1.25}
+p{color:var(--mut)}
+ul{list-style:none;padding:0;display:grid;gap:.9rem}
+li{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:1rem}
+a{color:var(--ac);font-weight:600;font-size:1.1rem}
+a:focus-visible{outline:3px solid var(--ac);outline-offset:3px}
+li span{display:block;color:var(--mut);font-size:.95rem;margin-top:.25rem}
+footer{margin-top:2rem;font-size:.9rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<h1>Laboratorio 12 · Accesibilidad y diseño universal (WCAG 2.2)</h1>
+<p>Curso de Interacción Hombre-Computador, FISI-UNMSM, 2026-II. Tres aplicaciones HTML + JavaScript que funcionan directamente en el navegador.</p>
+<ul>
+<li><a href="html/ejercicio_12_1_simulador_discapacidades.html">Ejercicio 12.1 · Simulador de discapacidades</a><span>Simulaciones, lector de pantalla simplificado, medición de tareas y registro de intentos.</span></li>
+<li><a href="html/ejercicio_12_2_verificador_wcag.html">Ejercicio 12.2 · Calculadora de contraste y verificador WCAG 2.2</a><span>Contraste 1.4.3 y 1.4.11, formulario A frente al B y fragmento para DevTools.</span></li>
+<li><a href="html/ejercicio_12_3_experimento_teclado_vs_raton.html">Ejercicio 12.3 · Experimento «solo teclado»</a><span>Formularios A y B, Single Ease Question y resultados acumulados.</span></li>
+</ul>
+<footer>Material educativo, no certifica conformidad WCAG. Código y notebooks: <a href="https://github.com/mbaernestocr-tech/ihc-accesibilidad-wcag-lab12" style="font-size:inherit">repositorio en GitHub</a>. © 2026 Ernesto D. Cancho-Rodríguez, CC BY 4.0.</footer>
+</main>
+</body>
+</html>

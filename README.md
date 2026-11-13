@@ -20,6 +20,11 @@ Material elaborado para el curso de IHC (202W0606) de la FISI-UNMSM (semestre 20
 
 Se abren con doble clic en cualquier navegador; son archivos únicos, sin instalación ni servidor.
 
+**Pruébelos en línea (GitHub Pages):** [portada](https://mbaernestocr-tech.github.io/ihc-accesibilidad-wcag-lab12/) ·
+[12.1 Simulador](https://mbaernestocr-tech.github.io/ihc-accesibilidad-wcag-lab12/html/ejercicio_12_1_simulador_discapacidades.html) ·
+[12.2 Verificador WCAG](https://mbaernestocr-tech.github.io/ihc-accesibilidad-wcag-lab12/html/ejercicio_12_2_verificador_wcag.html) ·
+[12.3 Experimento teclado](https://mbaernestocr-tech.github.io/ihc-accesibilidad-wcag-lab12/html/ejercicio_12_3_experimento_teclado_vs_raton.html)
+
 | Archivo | Qué hace |
 |---|---|
 | `ejercicio_12_1_simulador_discapacidades.html` | Simulador de discapacidades y barreras de acceso: simulaciones elegibles, lector de pantalla simplificado, medición de una tarea y registro de intentos |
